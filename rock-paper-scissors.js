@@ -1,3 +1,27 @@
+let humanScore = 0;
+let computerScore = 0;
+
+function playRound(humanChoice, computerChoice) {
+  humanChoice = humanChoice.toLowerCase();
+  let win = ( 
+    (humanChoice === "rock" && computerChoice === "scissors") 
+    || (humanChoice === "paper" && computerChoice === "rock")
+    || (humanChoice === "scissors" && computerChoice === "paper")
+  );
+  let draw = (humanChoice === computerChoice);
+
+  if (win) {
+    humanScore++;
+    console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
+  }
+  else if (draw) {
+    console.log(`Draw! You both chose ${humanChoice}.`);
+  } else {
+    computerScore++;
+    console.log(`You lose! ${computerChoice} beats ${humanChoice}!`);
+  } 
+}
+
 function getComputerChoice() {
   let randNum = Math.random();
   // console.log(randNum);
@@ -19,3 +43,10 @@ function getHumanChoice() {
 
 // console.log(getComputerChoice());
 // console.log(getHumanChoice());
+
+const humanChoice = getHumanChoice();
+const computerChoice = getComputerChoice();
+
+playRound(humanChoice, computerChoice);
+// console.log(humanScore);
+// console.log(computerScore);
