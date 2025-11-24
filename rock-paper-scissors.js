@@ -13,4 +13,9 @@ function getComputerChoice() {
     return "scissors";
 }
 
+function getHumanChoice() {
+  return prompt("Throw a hand sign!"); // assumes valid input
+}
+
 // console.log(getComputerChoice());
+// console.log(getHumanChoice());
