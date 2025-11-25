@@ -28,38 +28,31 @@ function playGame() {
   for (let round = 1; round <= 5; round++) {
     humanChoice = getHumanChoice();
     computerChoice = getComputerChoice();
-
-    // console.log(humanChoice);
-    // console.log(computerChoice);
-
     playRound(humanChoice, computerChoice);
-
-    // console.log(humanScore);
-    // console.log(computerScore);
   }
 
   console.log(`Score: ${humanScore}-${computerScore}`)
-  if (humanScore > computerScore)
+  if (humanScore > computerScore) {
     console.log("You won the game!");
-  else if (humanScore === computerChoice)
+  } else if (humanScore === computerChoice) {
     console.log("A draw!");
-  else
+  } else {
     console.log("You lost the game!")
+  }
 }
 
 function getComputerChoice() {
   let randNum = Math.random();
-  // console.log(randNum);
+  const FIRST_THIRD_UPPER_BOUND = 0.33;
+  const SECOND_THIRD_UPPER_BOUND = 0.66;
 
-  let firstBound = 0.33;
-  let secondBound = 0.66;
-
-  if (randNum < firstBound) 
+  if (randNum < FIRST_THIRD_UPPER_BOUND) {
     return "rock";
-  else if (randNum < secondBound) 
+  } else if (randNum < SECOND_THIRD_UPPER_BOUND) { 
     return "paper";
-  else 
+  } else {
     return "scissors";
+  }
 }
 
 function getHumanChoice() {
