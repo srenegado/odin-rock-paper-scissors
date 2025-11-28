@@ -3,7 +3,6 @@ function playGame() {
   let computerScore = 0;
 
   function playRound(humanChoice, computerChoice) {
-    humanChoice = humanChoice.toLowerCase();
     let win = ( 
       (humanChoice === "rock" && computerChoice === "scissors") 
       || (humanChoice === "paper" && computerChoice === "rock")
@@ -23,22 +22,31 @@ function playGame() {
     } 
   }
 
-  let humanChoice = "";
-  let computerChoice = "";
-  for (let round = 1; round <= 5; round++) {
-    humanChoice = getHumanChoice();
-    computerChoice = getComputerChoice();
-    playRound(humanChoice, computerChoice);
-  }
+  const moves = document.querySelector(".moves");
+  moves.addEventListener("click", (event) => {
+    const playerSelection = event.target;
+    const computerChoice = getComputerChoice();
+    switch (playerSelection.className) {
+      case "rock":
+        playRound("rock", computerChoice);
+        break;
+      case "paper":
+        playRound("paper", computerChoice);
+        break;
+      case "scissors":
+        playRound("scissors", computerChoice);
+        break; 
+    }
+  })
 
-  console.log(`Score: ${humanScore}-${computerScore}`)
-  if (humanScore > computerScore) {
-    console.log("You won the game!");
-  } else if (humanScore === computerChoice) {
-    console.log("A draw!");
-  } else {
-    console.log("You lost the game!")
-  }
+  // console.log(`Score: ${humanScore}-${computerScore}`)
+  // if (humanScore > computerScore) {
+  //   console.log("You won the game!");
+  // } else if (humanScore === computerScore) {
+  //   console.log("A draw!");
+  // } else {
+  //   console.log("You lost the game!")
+  // }
 }
 
 function getComputerChoice() {
@@ -53,10 +61,6 @@ function getComputerChoice() {
   } else {
     return "scissors";
   }
-}
-
-function getHumanChoice() {
-  return prompt("Throw a hand sign!"); // assumes valid input
 }
 
 playGame();
