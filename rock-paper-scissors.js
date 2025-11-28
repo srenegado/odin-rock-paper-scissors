@@ -1,24 +1,26 @@
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
+  
 
   function playRound(humanChoice, computerChoice) {
-    let win = ( 
+    const win = ( 
       (humanChoice === "rock" && computerChoice === "scissors") 
       || (humanChoice === "paper" && computerChoice === "rock")
       || (humanChoice === "scissors" && computerChoice === "paper")
     );
-    let draw = (humanChoice === computerChoice);
+    const draw = (humanChoice === computerChoice);
 
+    const results = document.querySelector(".results");
     if (win) {
       humanScore++;
-      console.log(`You win! ${humanChoice} beats ${computerChoice}!`);
+      results.textContent = `You win! ${humanChoice} beats ${computerChoice}!`;
     }
     else if (draw) {
-      console.log(`Draw! You both chose ${humanChoice}.`);
+      results.textContent = `Draw! You both chose ${humanChoice}.`;
     } else {
       computerScore++;
-      console.log(`You lose! ${computerChoice} beats ${humanChoice}!`);
+      results.textContent = `You lose! ${computerChoice} beats ${humanChoice}!`;
     } 
   }
 
