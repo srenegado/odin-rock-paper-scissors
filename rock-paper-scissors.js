@@ -1,8 +1,11 @@
 function playGame() {
   let humanScore = 0;
   let computerScore = 0;
+  const results = document.querySelector(".results");
+  const moves = document.querySelector(".moves");
+  const score = document.querySelector(".score");
+  score.textContent = `Score: ${humanScore}-${computerScore}`;
   
-
   function playRound(humanChoice, computerChoice) {
     const win = ( 
       (humanChoice === "rock" && computerChoice === "scissors") 
@@ -11,7 +14,6 @@ function playGame() {
     );
     const draw = (humanChoice === computerChoice);
 
-    const results = document.querySelector(".results");
     if (win) {
       humanScore++;
       results.textContent = `You win! ${humanChoice} beats ${computerChoice}!`;
@@ -24,8 +26,7 @@ function playGame() {
     } 
   }
 
-  const moves = document.querySelector(".moves");
-  moves.addEventListener("click", (event) => {
+  function handleMoveSelection(event) {
     const playerSelection = event.target;
     const computerChoice = getComputerChoice();
     switch (playerSelection.className) {
@@ -39,16 +40,23 @@ function playGame() {
         playRound("scissors", computerChoice);
         break; 
     }
-  })
+  }
 
-  // console.log(`Score: ${humanScore}-${computerScore}`)
-  // if (humanScore > computerScore) {
-  //   console.log("You won the game!");
-  // } else if (humanScore === computerScore) {
-  //   console.log("A draw!");
-  // } else {
-  //   console.log("You lost the game!")
-  // }
+  function updateScoreAndResults() {
+    score.textContent = `Score: ${humanScore}-${computerScore}`;
+    
+    const humanWon = humanScore >= 5;
+    const computerWon = computerScore >= 5;
+    if (humanWon || computerWon) {
+      results.textContent = (humanWon) 
+        ? "You won the game!" : "You lost the game!";
+      moves.removeEventListener("click", handleMoveSelection);
+      moves.removeEventListener("click", updateScoreAndResults);
+    }
+  }
+
+  moves.addEventListener("click", handleMoveSelection);
+  moves.addEventListener("click", updateScoreAndResults);
 }
 
 function getComputerChoice() {
